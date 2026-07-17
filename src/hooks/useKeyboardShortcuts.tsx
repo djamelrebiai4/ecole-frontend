@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useCallback, useRef, useState } from "react";
+import React, { useEffect, useCallback, useRef, useState } from "react";
 import { useRouter, usePathname } from "@/i18n/routing";
 import { Search, Keyboard, ChevronDown, ExternalLink } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -268,7 +268,7 @@ export function CommandPalette() {
                   </kbd>
                 )}
               </li>
-            ))}
+            )))}
         </ul>
       </div>
     </div>
@@ -349,7 +349,7 @@ export function KeyboardShortcutsHelp() {
                           ))}
                         </kbd>
                         <dd className="text-sm text-fg">{description}</dd>
-                      </dl>
+                      </div>
                     ))}
                   </dl>
                 </div>
@@ -357,7 +357,7 @@ export function KeyboardShortcutsHelp() {
             </div>
           </div>
         </div>
+      )}
       </>
     );
-  );
-}
+  }

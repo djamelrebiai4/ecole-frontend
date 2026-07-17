@@ -586,7 +586,7 @@ export function DataTable<T extends Record<string, any>>({
                     )}
                   </tr>
                 );
-              )}
+              })
             )}
           </tbody>
         </table>
@@ -631,7 +631,6 @@ export function DataTable<T extends Record<string, any>>({
         </div>
       )}
     </div>
-  </div>
   );
 }
 

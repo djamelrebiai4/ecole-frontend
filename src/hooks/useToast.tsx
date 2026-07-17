@@ -1,7 +1,10 @@
 "use client";
 
-import { useToast as useSonnerToast, Toaster as SonnerToaster, toast as sonnerToast } from "sonner";
+import { useCallback, useEffect } from "react";
+import { Toaster as SonnerToaster, toast as sonnerToast } from "sonner";
 import { useTranslations } from "next-intl";
+import { useRouter, usePathname } from "@/i18n/routing";
+import { cn } from "@/lib/utils";
 import { CheckCircle, AlertCircle, AlertTriangle, Info, Loader2, X, ChevronRight } from "lucide-react";
 
 type ToastType = "success" | "error" | "warning" | "info" | "loading" | "promise";
@@ -21,7 +24,7 @@ interface PromiseToastOptions<T> {
 }
 
 export function useToast() {
-  const sonner = useSonnerToast();
+  const sonner = sonnerToast;
   const t = useTranslations("toast");
 
   const showToast = useCallback((
@@ -55,7 +58,7 @@ export function useToast() {
       case "loading":
         return sonner.loading(message, { ...baseOptions, icon: <LoadingIcon /> });
       case "promise":
-        return sonner.promise(options.action?.onClick as Promise<any>, {
+        return sonner.promise(Promise.resolve(options.action?.onClick), {
           loading: options.description || t("loading"),
           success: options.action?.label || t("success"),
           error: t("error"),
@@ -78,7 +81,7 @@ export function useToast() {
         error: messages.error,
       }),
     dismiss: sonner.dismiss,
-    dismissAll: sonner.dismissAll,
+    dismissAll: () => sonner.dismiss(),
   };
 }
 
@@ -143,18 +146,9 @@ export function Toaster() {
           closeButton: "text-muted hover:text-fg",
         },
         duration: 4000,
-        dismissible: true,
         closeButton: true,
-        expandByDefault: false,
-        hideCloseButton: false,
-        iconTheme: {
-          primary: "currentColor",
-          secondary: "currentColor",
-        },
       }}
-      reverseOrder={false}
-      gutters={16}
-      containerClassName={cn("z-[100]", isRTL && "left-4 right-auto", !isRTL && "right-4 left-auto")}
+      className={cn("z-[100]", isRTL && "left-4 right-auto", !isRTL && "right-4 left-auto")}
     />
   );
 }
