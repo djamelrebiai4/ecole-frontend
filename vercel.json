@@ -1,4 +1,4 @@
 {
   "framework": "nextjs",
-  "buildCommand": "next build && echo '{\"version\":1,\"files\":[]}' > .next/server/middleware.js.nft.json"
+  "buildCommand": "next build --webpack"
 }
